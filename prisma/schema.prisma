@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// Planes de Ahorro
+model Plan {
+  id           Int           @id @default(autoincrement())
+  nombre       String        @unique // Ej: "Mensualidad", "Viaje", "Meses Sin Ingreso"
+  saldoMxn     Float         @default(0) // Dinero actual disponible aquí
+  transacciones Transaccion[]
+}
+
+// Registro de cada entrada o salida de dinero
+model Transaccion {
+  id              Int      @id @default(autoincrement())
+  fecha           DateTime @default(now())
+  descripcion     String
+  tipo            String   // "INGRESO" o "EGRESO"
+  montoMxn        Float    // Lo que sale o entra del PLAN
+  montoTotalMxn   Float?   // El total real 
+  apoyoExtra      Float?   // El apoyo recibido
+  montoUsd        Float?   
+  tipoCambio      Float?   
+  planId          Int
+  plan            Plan     @relation(fields: [planId], references: [id])
+}

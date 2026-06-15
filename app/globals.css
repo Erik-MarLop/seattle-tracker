@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* Si quieres que se vea con la fuente Inter (más moderna), añade esto: */
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}

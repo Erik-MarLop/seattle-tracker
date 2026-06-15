@@ -1,0 +1,18 @@
+{
+  "node": {
+    "40272bdf6ba949b7fa416279b3f188d7a0be1526a7": {
+      "workers": {
+        "app/historial/page": {
+          "moduleId": "[project]/.next-internal/server/app/historial/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/historial/page.tsx [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "app/historial/page.tsx"
+        }
+      },
+      "filename": "app/historial/page.tsx",
+      "exportedName": "$$RSC_SERVER_ACTION_0"
+    }
+  },
+  "edge": {},
+  "encryptionKey": "21mWF9TKgVXsj/1BseVGcMLC+16vXZX3TlA3LQaKLTc="
+}

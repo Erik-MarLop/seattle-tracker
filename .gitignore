@@ -1,0 +1,14 @@
+node_modules
+
+# Base de datos local
+*.db
+*.db-journal
+prisma/dev.db
+prisma/dev.sqlite
+
+# Archivos de entorno (Secretos)
+.env
+.env.local
+.env.*
+
+/generated/prisma
