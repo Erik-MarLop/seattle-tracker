@@ -17,7 +17,8 @@ A modern, full-stack personal finance web application designed to track savings,
 * **Deployment:** Local executable automation (.bat script for Windows)
 
 ## Screenshots
-
+<img width="1599" height="855" alt="Home Screen" src="https://github.com/user-attachments/assets/14f3319c-5060-4646-aee5-0bd026215c39" />
+<img width="1582" height="848" alt="Transaction History" src="https://github.com/user-attachments/assets/387815cf-1b30-4958-a248-e9c022e6b73c" />
 
 ## Getting Started
 
