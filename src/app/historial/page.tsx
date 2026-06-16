@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { revalidatePath } from "next/cache";
 import BotonBorrar from "@/components/BotonBorrar";
+import { formatearMoneda, formatearFecha } from "@/utils/formatters";
 
 export default async function HistorialPage() {
   const transacciones = await prisma.transaccion.findMany({
@@ -42,12 +43,12 @@ export default async function HistorialPage() {
             {transacciones.map((t) => (
               <tr key={t.id} className="hover:bg-slate-50 transition-colors">
                 <td className="p-4 text-sm text-slate-600">
-                  {new Date(t.fecha).toLocaleDateString()}
+                  {formatearFecha(t.fecha)}
                 </td>
                 <td className="p-4 font-bold text-slate-700 text-sm">{t.plan.nombre}</td>
                 <td className="p-4 text-slate-600 text-sm">{t.descripcion}</td>
                 <td className={`p-4 font-black ${t.tipo === 'INGRESO' ? 'text-green-600' : 'text-red-600'}`}>
-                  {t.tipo === 'INGRESO' ? '+' : '-'} ${t.montoMxn.toLocaleString()}
+                  {t.tipo === 'INGRESO' ? '+' : '- '} {formatearMoneda(t.montoMxn)}
                 </td>
                 <td className="p-4 text-center">
                   {t.tipoCambio ? (

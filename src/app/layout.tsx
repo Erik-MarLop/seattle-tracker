@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import './globals.css'
 
 export default function RootLayout({
@@ -13,3 +14,8 @@ export default function RootLayout({
     </html>
   )
 }
+
+export const metadata: Metadata = {
+  title: "Seattle Tracker | Finanzas Personales",
+  description: "Plataforma integral para el control de metas de ahorro y tipos de cambio.",
+};

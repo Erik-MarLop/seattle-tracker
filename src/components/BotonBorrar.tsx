@@ -1,6 +1,7 @@
-"use client"; // Este archivo tiene permiso de usar alertas
+"use client";
+import { BotonBorrarProps } from "@/types";
 
-export default function BotonBorrar({ id, accion }: { id: number, accion: (formData: FormData) => void }) {
+export default function BotonBorrar({ id, accion }: BotonBorrarProps) {
   return (
     <form action={accion} className="inline" onSubmit={(e) => {
       if (!confirm("¿Estás seguro de que quieres eliminar este registro permanentemente?")) {

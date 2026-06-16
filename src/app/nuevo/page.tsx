@@ -1,12 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { NuevoRegistroPageProps } from "@/types";
 
-export default async function NuevoRegistro({
-  searchParams,
-}: {
-  searchParams: Promise<{ edit?: string }>;
-}) {
+export default async function NuevoRegistro({ searchParams }: NuevoRegistroPageProps) {
   const planes = await prisma.plan.findMany();
   const params = await searchParams;
   

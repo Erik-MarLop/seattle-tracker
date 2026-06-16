@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link"
+import { formatearMoneda } from "@/utils/formatters";
 
 export default async function HomePage() {
   // 1. Traer datos de la DB (Igual que en el script)
@@ -46,7 +47,7 @@ export default async function HomePage() {
         </div>
         <div className="text-right bg-blue-600 text-white p-4 rounded-2xl shadow-lg shadow-blue-200">
           <p className="text-xs uppercase font-bold tracking-widest opacity-80">Total Global</p>
-          <p className="text-3xl font-black">${granTotal.toLocaleString('es-MX', { minimumFractionDigits: 2 })} MXN</p>
+          <p className="text-3xl font-black">{formatearMoneda(granTotal)} MXN</p>
         </div>
       </header>
 
@@ -59,18 +60,18 @@ export default async function HomePage() {
             <div className="flex justify-between items-center mb-6">
               <span className="text-slate-400 font-medium">Disponible</span>
               <span className={`text-2xl font-black ${plan.disponible >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                ${plan.disponible.toLocaleString('es-MX', { minimumFractionDigits: 2 })}
+                {formatearMoneda(plan.disponible)}
               </span>
             </div>
 
             <div className="space-y-3 pt-4 border-t border-slate-100">
               <div className="flex justify-between text-sm">
                 <span className="text-slate-500">Ingresos Totales</span>
-                <span className="font-bold text-slate-700">${plan.totalAhorrado.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</span>
+                <span className="font-bold text-slate-700">{formatearMoneda(plan.totalAhorrado)}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-slate-500">Egresos Totales</span>
-                <span className="font-bold text-slate-700">${plan.totalGastado.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</span>
+                <span className="font-bold text-slate-700">{formatearMoneda(plan.totalGastado)}</span>
               </div>
             </div>
           </div>
