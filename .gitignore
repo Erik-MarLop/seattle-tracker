@@ -13,3 +13,4 @@ prisma/dev.sqlite
 .env.*
 
 /generated/prisma
+src/app/Logo ST.png

@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
-import Link from "next/link"
+import Link from "next/link";
 import { formatearMoneda } from "@/utils/formatters";
+import GraficaPlanes from "@/components/GraficaPlanes";
 
 export default async function HomePage() {
   // 1. Traer datos de la DB (Igual que en el script)
@@ -8,7 +9,6 @@ export default async function HomePage() {
     include: { transacciones: true },
   });
 
-  // 2. Lógica de cálculo
   const planesCalculados = planes.map((plan) => {
     let totalAhorrado = 0;
     let totalGastado = 0;
@@ -37,15 +37,15 @@ export default async function HomePage() {
             Seattle Tracker 🚀
           </h1>
           <div className="flex gap-4 mt-4">
-            <Link href="/nuevo" className="bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100">
+            <Link href="/nuevo" className="bg-sky-600 text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-sky-700 transition-all shadow-lg shadow-sky-100">
               + Nuevo Registro
             </Link>
-            <Link href="/historial" className="bg-white border border-slate-200 text-slate-600 px-4 py-2 rounded-xl text-sm font-bold hover:bg-slate-50 transition-all">
+            <Link href="/historial" className="bg-white border-2 border-slate-200 text-slate-600 px-4 py-2 rounded-xl text-sm font-bold hover:border-sky-300 hover:text-sky-700 hover:bg-sky-50 transition-all shadow-sm">
               Ver Historial
             </Link>
           </div>
         </div>
-        <div className="text-right bg-blue-600 text-white p-4 rounded-2xl shadow-lg shadow-blue-200">
+        <div className="text-right bg-sky-700 text-white p-6 rounded-3xl shadow-xl shadow-sky-100">
           <p className="text-xs uppercase font-bold tracking-widest opacity-80">Total Global</p>
           <p className="text-3xl font-black">{formatearMoneda(granTotal)} MXN</p>
         </div>
@@ -54,7 +54,7 @@ export default async function HomePage() {
       {/* Grid de Planes */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {planesCalculados.map((plan) => (
-          <div key={plan.nombre} className="bg-white border border-slate-200 p-6 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
+          <div key={plan.nombre} className="bg-white border-t-4 border-t-sky-600 border-x border-b border-slate-200 p-6 rounded-3xl shadow-lg hover:shadow-xl transition-shadow">
             <h2 className="text-xl font-bold text-slate-700 mb-4 uppercase tracking-tight">{plan.nombre}</h2>
             
             <div className="flex justify-between items-center mb-6">
@@ -77,6 +77,9 @@ export default async function HomePage() {
           </div>
         ))}
       </div>
+
+      <GraficaPlanes datos={planesCalculados} /> 
+      
     </main>
   );
 }

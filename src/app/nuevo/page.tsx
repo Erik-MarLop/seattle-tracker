@@ -1,56 +1,18 @@
 import { prisma } from "@/lib/prisma";
-import { redirect } from "next/navigation";
 import Link from "next/link";
 import { NuevoRegistroPageProps } from "@/types";
+import BotonGuardar from "@/components/BotonGuardar";
+import { guardarTransaccion } from "./actions"; 
 
 export default async function NuevoRegistro({ searchParams }: NuevoRegistroPageProps) {
   const planes = await prisma.plan.findMany();
   const params = await searchParams;
   
-  // 1. ¿Estamos editando? Buscamos el registro si existe el ID en la URL
+  // Buscamos el registro si existe el ID en la URL
   const idAEditar = params.edit ? Number(params.edit) : null;
   const transaccionPrevia = idAEditar 
     ? await prisma.transaccion.findUnique({ where: { id: idAEditar } }) 
     : null;
-
-  async function guardarTransaccion(formData: FormData) {
-    "use server";
-
-    const id = formData.get("id") ? Number(formData.get("id")) : null;
-    const planId = Number(formData.get("planId"));
-    const montoMxn = Number(formData.get("montoMxn"));
-    const montoUsd = Number(formData.get("montoUsd")) || null;
-    const montoTotalMxn = Number(formData.get("montoTotalMxn")) || null;
-    const tipo = formData.get("tipo") as string;
-
-    let tipoCambio = null;
-    if (montoTotalMxn && montoUsd) {
-      tipoCambio = Number((montoTotalMxn / montoUsd).toFixed(2));
-    }
-
-    const data = {
-      descripcion: formData.get("descripcion") as string,
-      tipo: tipo,
-      montoMxn: montoMxn,
-      montoUsd: montoUsd,
-      montoTotalMxn: montoTotalMxn,
-      apoyoExtra: Number(formData.get("apoyoExtra")) || null,
-      tipoCambio: tipoCambio,
-      planId: planId,
-    };
-
-    // 2. Lógica Dual: Si hay ID, actualiza. Si no, crea.
-    if (id) {
-      await prisma.transaccion.update({
-        where: { id },
-        data: data,
-      });
-    } else {
-      await prisma.transaccion.create({ data: data });
-    }
-
-    redirect("/historial");
-  }
 
   return (
     <main className="max-w-xl mx-auto p-8">
@@ -59,7 +21,7 @@ export default async function NuevoRegistro({ searchParams }: NuevoRegistroPageP
       </h1>
       
       <form action={guardarTransaccion} className="space-y-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-        {/* Campo oculto para saber qué ID estamos editando */}
+        
         <input type="hidden" name="id" value={transaccionPrevia?.id || ""} />
 
         <div>
@@ -110,11 +72,9 @@ export default async function NuevoRegistro({ searchParams }: NuevoRegistroPageP
         </div>
 
         <div className="flex gap-4">
-          <button type="submit" className="flex-1 bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700">
-            {transaccionPrevia ? "Guardar Cambios" : "Guardar Transacción"}
-          </button>
+          <BotonGuardar esEdicion={!!transaccionPrevia} />
           
-          <Link href="/historial" className="flex-1 bg-slate-100 text-slate-600 font-bold py-3 rounded-xl text-center hover:bg-slate-200">
+          <Link href="/historial" className="flex-1 bg-slate-100 text-slate-600 font-bold py-3 rounded-xl text-center hover:bg-slate-200 transition-colors">
             Cancelar
           </Link>
         </div>
